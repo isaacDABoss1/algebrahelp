@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Year 10 Advanced Mathematics</title>
+    <title>Year 10 Algebra Fundamentals</title>
     <style>
         :root {
             --math-blue: #2c3e50;
-            --bg-light: #fdfdfd;
+            --bg-light: #f9f9f9;
             --game-bg: #0d1117;
             --card: #161b22;
             --accent: #58a6ff;
@@ -15,13 +15,21 @@
         }
 
         html, body { height: 100%; margin: 0; padding: 0; overflow-x: hidden; }
-        body { font-family: 'Times New Roman', serif; background: var(--bg-light); color: #333; }
+        body { font-family: 'Arial', sans-serif; background: var(--bg-light); color: #333; }
 
-        /* MATH FRONT PAGE */
+        /* ALGEBRA FRONT PAGE */
         #math-page { min-height: 100vh; display: flex; align-items: center; justify-content: center; text-align: center; }
-        .math-container { max-width: 600px; background: white; border: 1px solid #ccc; padding: 40px; box-shadow: 8px 8px 0px #eee; }
-        .math-input { padding: 12px; width: 80%; margin-bottom: 20px; border: 1px solid #aaa; }
-        .solve-btn { background: #f0f0f0; border: 1px solid #999; padding: 10px 40px; cursor: pointer; font-weight: bold; }
+        .math-container { 
+            max-width: 600px; 
+            background: white; 
+            border: 2px solid #ddd; 
+            padding: 40px; 
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1); 
+        }
+        .math-input { padding: 12px; width: 80%; margin-bottom: 20px; border: 1px solid #aaa; font-family: 'Courier New', monospace; border-radius: 4px; }
+        .solve-btn { background: var(--math-blue); color: white; border: none; padding: 12px 40px; cursor: pointer; font-weight: bold; border-radius: 4px; transition: 0.3s; }
+        .solve-btn:hover { background: #34495e; }
 
         /* SECRET GALLERY - SCROLLABLE */
         #game-gallery {
@@ -45,7 +53,7 @@
         .square img { width: 100%; height: 100%; object-fit: cover; background: #21262d; }
         .square h3 { 
             position: absolute; bottom: 0; width: 100%; margin: 0;
-            background: rgba(0, 0, 0, 0.7); color: white; padding: 5px 0;
+            background: rgba(0, 0, 0, 0.8); color: white; padding: 5px 0;
             font-size: 0.8rem; text-align: center; font-family: sans-serif;
         }
 
@@ -59,18 +67,23 @@
 
     <div id="math-page">
         <div class="math-container">
-            <h1 style="color: var(--math-blue);">Unit 4: Advanced Calculus</h1>
-            <p>Verification Portal: Year 10 Mathematics</p>
-            <input type="text" class="math-input" placeholder="y = mx + b">
+            <h1 style="color: var(--math-blue); font-size: 1.8rem;">Module 2: Linear Equations & Algebra</h1>
+            <p style="color: #666;">Student Revision Portal | Term 1 Assessment</p>
+            <hr style="border: 0; border-top: 1px solid #eee; margin: 20px 0;">
+            <p>Solve for <i>y</i> when <i>x = 3</i> in the linear equation <i>y = 2x + 3</i>:</p>
+            
+            <input type="text" id="math-box" class="math-input" placeholder="Enter solution...">
             <br>
-            <button class="solve-btn" onclick="checkPassword()">Solve & Verify</button>
+            <button class="solve-btn" onclick="checkMath()">Submit & Verify Answer</button>
+            
+            <p style="margin-top: 30px; font-size: 0.75rem; color: #aaa;">Digital Textbook &copy; 2024 Education Board</p>
         </div>
     </div>
 
     <div id="game-gallery">
         <div class="gallery-header">
-            <button onclick="closeGallery()" style="background: #333; color: white; border: none; padding: 8px 15px; cursor: pointer; float: left; border-radius: 4px;">← Back</button>
-            <h2 style="margin: 0; display: inline-block; font-family: sans-serif;">Research Archive</h2>
+            <button onclick="closeGallery()" style="background: #333; color: white; border: none; padding: 8px 15px; cursor: pointer; float: left; border-radius: 4px;">← Back to Algebra</button>
+            <h2 style="margin: 0; display: inline-block; font-family: sans-serif;">Internal Resources</h2>
         </div>
         <div class="grid">
             <div class="square" onclick="play('https://play2048.co/')"><img src="https://images.unsplash.com/photo-1628155930542-3c7a64e2c833?w=200"><h3>2048</h3></div>
@@ -96,15 +109,16 @@
     </div>
 
     <script>
-        // CHANGE YOUR PASSWORD HERE
-        const SECRET_CODE = "1234";
+        // THE PASSWORD KEY
+        const SECRET_CODE = "y=3x+9";
 
-        function checkPassword() {
-            let userInput = prompt("Enter verification code:");
-            if (userInput === SECRET_CODE) {
+        function checkMath() {
+            let val = document.getElementById('math-box').value.trim();
+            if (val === SECRET_CODE) {
                 openGallery();
             } else {
-                alert("Incorrect verification code. Please try again.");
+                // Generic error that sounds like a real online quiz
+                alert("Validation failed: Please ensure the equation is balanced correctly.");
             }
         }
 
@@ -126,9 +140,11 @@
         function panic() {
             document.getElementById('game-frame').src = '';
             document.getElementById('overlay').style.display = 'none';
+            document.getElementById('game-gallery').style.display = 'none';
             document.body.style.overflow = 'auto';
         }
 
+        // Panic Key ESC
         window.addEventListener('keydown', function(e) { if (e.key === "Escape") { panic(); } });
     </script>
 </body>
